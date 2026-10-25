@@ -1,0 +1,113 @@
+/* Colour roles. Chart colours follow the validated reference palette (dataviz skill):
+   series 1 (blue) = forecast, series 2 (orange) = actual, blue <-> red = under/over forecast.
+   Dark mode uses its own validated steps, not an automatic inversion. */
+
+:root {
+  color-scheme: light;
+
+  --page: #f9f9f7;
+  --surface: #fcfcfb;
+  --surface-raised: #ffffff;
+  --surface-sunken: #f0efec;
+
+  --ink-1: #0b0b0b;
+  --ink-2: #52514e;
+  --ink-muted: #6f6e69;
+  --axis-ink: #898781;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --border: rgba(11, 11, 11, 0.1);
+  --border-strong: rgba(11, 11, 11, 0.18);
+
+  --series-forecast: #2a78d6;
+  --series-actual: #eb6834;
+  --band: rgba(42, 120, 214, 0.13);
+  --context: #898781;
+  --diverging-over: #e34948;
+  --diverging-under: #2a78d6;
+
+  --accent: #2a78d6;
+  --accent-ink: #1c5cab;
+  --accent-wash: rgba(42, 120, 214, 0.1);
+  --warning-ink: #8a5a00;
+  --warning-wash: rgba(250, 178, 25, 0.16);
+  --critical-ink: #b42f2f;
+  --critical-wash: rgba(208, 59, 59, 0.1);
+
+  --shadow: 0 1px 2px rgba(11, 11, 11, 0.04), 0 2px 8px rgba(11, 11, 11, 0.04);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+
+    --page: #0d0d0d;
+    --surface: #1a1a19;
+    --surface-raised: #1f1f1e;
+    --surface-sunken: #141413;
+
+    --ink-1: #f0efec;
+    --ink-2: #c3c2b7;
+    --ink-muted: #a3a29b;
+    --axis-ink: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255, 255, 255, 0.1);
+    --border-strong: rgba(255, 255, 255, 0.18);
+
+    --series-forecast: #3987e5;
+    --series-actual: #d95926;
+    --band: rgba(57, 135, 229, 0.2);
+    --context: #898781;
+    --diverging-over: #e66767;
+    --diverging-under: #3987e5;
+
+    --accent: #3987e5;
+    --accent-ink: #86b6ef;
+    --accent-wash: rgba(57, 135, 229, 0.16);
+    --warning-ink: #fab219;
+    --warning-wash: rgba(250, 178, 25, 0.12);
+    --critical-ink: #e66767;
+    --critical-wash: rgba(230, 103, 103, 0.12);
+
+    --shadow: none;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --page: #0d0d0d;
+  --surface: #1a1a19;
+  --surface-raised: #1f1f1e;
+  --surface-sunken: #141413;
+
+  --ink-1: #f0efec;
+  --ink-2: #c3c2b7;
+  --ink-muted: #a3a29b;
+  --axis-ink: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  --series-forecast: #3987e5;
+  --series-actual: #d95926;
+  --band: rgba(57, 135, 229, 0.2);
+  --context: #898781;
+  --diverging-over: #e66767;
+  --diverging-under: #3987e5;
+
+  --accent: #3987e5;
+  --accent-ink: #86b6ef;
+  --accent-wash: rgba(57, 135, 229, 0.16);
+  --warning-ink: #fab219;
+  --warning-wash: rgba(250, 178, 25, 0.12);
+  --critical-ink: #e66767;
+  --critical-wash: rgba(230, 103, 103, 0.12);
+
+  --shadow: none;
+}

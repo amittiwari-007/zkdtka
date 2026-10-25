@@ -1,0 +1,1457 @@
+{
+  "components": {
+    "schemas": {
+      "AccuracyReport": {
+        "properties": {
+          "by_day": {
+            "items": {
+              "$ref": "#/components/schemas/DailyStat"
+            },
+            "title": "By Day",
+            "type": "array"
+          },
+          "by_forecast_level": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastLevelStat"
+            },
+            "title": "By Forecast Level",
+            "type": "array"
+          },
+          "by_horizon": {
+            "items": {
+              "$ref": "#/components/schemas/HorizonStat"
+            },
+            "title": "By Horizon",
+            "type": "array"
+          },
+          "by_hour_of_day": {
+            "items": {
+              "$ref": "#/components/schemas/HourOfDayStat"
+            },
+            "title": "By Hour Of Day",
+            "type": "array"
+          },
+          "coverage": {
+            "$ref": "#/components/schemas/Coverage"
+          },
+          "decision_time": {
+            "title": "Decision Time",
+            "type": "string"
+          },
+          "decision_time_comparison": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionTimeStat"
+            },
+            "title": "Decision Time Comparison",
+            "type": "array"
+          },
+          "delivery_date_from": {
+            "format": "date",
+            "title": "Delivery Date From",
+            "type": "string"
+          },
+          "delivery_date_to": {
+            "format": "date",
+            "title": "Delivery Date To",
+            "type": "string"
+          },
+          "histogram": {
+            "items": {
+              "$ref": "#/components/schemas/HistogramBin"
+            },
+            "title": "Histogram",
+            "type": "array"
+          },
+          "planning_margins": {
+            "items": {
+              "$ref": "#/components/schemas/PlanningMargin"
+            },
+            "title": "Planning Margins",
+            "type": "array"
+          },
+          "scatter": {
+            "items": {
+              "$ref": "#/components/schemas/ScatterPoint"
+            },
+            "title": "Scatter",
+            "type": "array"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/ErrorSummary"
+          }
+        },
+        "required": [
+          "decision_time",
+          "delivery_date_from",
+          "delivery_date_to",
+          "summary",
+          "coverage",
+          "planning_margins",
+          "by_hour_of_day",
+          "by_horizon",
+          "by_forecast_level",
+          "by_day",
+          "histogram",
+          "scatter",
+          "decision_time_comparison"
+        ],
+        "title": "AccuracyReport",
+        "type": "object"
+      },
+      "Coverage": {
+        "properties": {
+          "hours_evaluated": {
+            "title": "Hours Evaluated",
+            "type": "integer"
+          },
+          "hours_with_actual": {
+            "title": "Hours With Actual",
+            "type": "integer"
+          },
+          "hours_with_forecast": {
+            "title": "Hours With Forecast",
+            "type": "integer"
+          },
+          "target_hours": {
+            "title": "Target Hours",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "target_hours",
+          "hours_with_forecast",
+          "hours_with_actual",
+          "hours_evaluated"
+        ],
+        "title": "Coverage",
+        "type": "object"
+      },
+      "DailyStat": {
+        "properties": {
+          "actual_energy_mwh": {
+            "title": "Actual Energy Mwh",
+            "type": "number"
+          },
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "forecast_energy_mwh": {
+            "title": "Forecast Energy Mwh",
+            "type": "number"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "max_abs_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Max Abs Error Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "n",
+          "mae_mw",
+          "bias_mw",
+          "max_abs_error_mw",
+          "forecast_energy_mwh",
+          "actual_energy_mwh"
+        ],
+        "title": "DailyStat",
+        "type": "object"
+      },
+      "DataInfo": {
+        "properties": {
+          "actual_duplicates_removed": {
+            "title": "Actual Duplicates Removed",
+            "type": "integer"
+          },
+          "actual_missing_half_hours": {
+            "title": "Actual Missing Half Hours",
+            "type": "integer"
+          },
+          "actual_rows_received": {
+            "title": "Actual Rows Received",
+            "type": "integer"
+          },
+          "actual_rows_rejected": {
+            "title": "Actual Rows Rejected",
+            "type": "integer"
+          },
+          "fetched_at": {
+            "format": "date-time",
+            "title": "Fetched At",
+            "type": "string"
+          },
+          "forecast_duplicates_removed": {
+            "title": "Forecast Duplicates Removed",
+            "type": "integer"
+          },
+          "forecast_publish_schedule_utc": {
+            "description": "Usual run publication times (HH:MM UTC), most frequent first",
+            "items": {
+              "type": "string"
+            },
+            "title": "Forecast Publish Schedule Utc",
+            "type": "array"
+          },
+          "forecast_rows_received": {
+            "title": "Forecast Rows Received",
+            "type": "integer"
+          },
+          "forecast_rows_rejected": {
+            "title": "Forecast Rows Rejected",
+            "type": "integer"
+          },
+          "forecast_runs": {
+            "title": "Forecast Runs",
+            "type": "integer"
+          },
+          "source": {
+            "title": "Source",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "fetched_at",
+          "actual_rows_received",
+          "actual_rows_rejected",
+          "actual_duplicates_removed",
+          "actual_missing_half_hours",
+          "forecast_rows_received",
+          "forecast_rows_rejected",
+          "forecast_duplicates_removed",
+          "forecast_runs",
+          "forecast_publish_schedule_utc"
+        ],
+        "title": "DataInfo",
+        "type": "object"
+      },
+      "DayHour": {
+        "properties": {
+          "actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Hourly mean of the two half-hour actuals",
+            "title": "Actual Mw"
+          },
+          "error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Error Mw"
+          },
+          "forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast Mw"
+          },
+          "horizon_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Horizon H"
+          },
+          "likely_high_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Upper edge of the historical error band",
+            "title": "Likely High Mw"
+          },
+          "likely_low_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Lower edge of the historical error band",
+            "title": "Likely Low Mw"
+          },
+          "publish_time": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Run the forecast came from",
+            "title": "Publish Time"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "forecast_mw",
+          "publish_time",
+          "horizon_h",
+          "actual_mw",
+          "error_mw",
+          "likely_low_mw",
+          "likely_high_mw"
+        ],
+        "title": "DayHour",
+        "type": "object"
+      },
+      "DaySummary": {
+        "properties": {
+          "actual_energy_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actual Energy Mwh"
+          },
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "forecast_energy_mwh": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast Energy Mwh"
+          },
+          "forecast_min_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast Min Mw"
+          },
+          "forecast_peak_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Forecast Peak Mw"
+          },
+          "hours_with_forecast": {
+            "title": "Hours With Forecast",
+            "type": "integer"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "planning_margin_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Margin, from other days' errors, giving 90% confidence that actual >= forecast - margin",
+            "title": "Planning Margin Mw"
+          },
+          "target_hours": {
+            "title": "Target Hours",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "target_hours",
+          "hours_with_forecast",
+          "forecast_energy_mwh",
+          "actual_energy_mwh",
+          "forecast_peak_mw",
+          "forecast_min_mw",
+          "planning_margin_mw",
+          "mae_mw",
+          "bias_mw"
+        ],
+        "title": "DaySummary",
+        "type": "object"
+      },
+      "DayView": {
+        "properties": {
+          "actuals": {
+            "items": {
+              "$ref": "#/components/schemas/HalfHourActual"
+            },
+            "title": "Actuals",
+            "type": "array"
+          },
+          "band_confidence": {
+            "description": "Central probability covered by the likely range",
+            "title": "Band Confidence",
+            "type": "number"
+          },
+          "deadline_utc": {
+            "format": "date-time",
+            "title": "Deadline Utc",
+            "type": "string"
+          },
+          "decision_date": {
+            "format": "date",
+            "title": "Decision Date",
+            "type": "string"
+          },
+          "decision_time": {
+            "title": "Decision Time",
+            "type": "string"
+          },
+          "delivery_date": {
+            "format": "date",
+            "title": "Delivery Date",
+            "type": "string"
+          },
+          "hourly": {
+            "items": {
+              "$ref": "#/components/schemas/DayHour"
+            },
+            "title": "Hourly",
+            "type": "array"
+          },
+          "runs": {
+            "items": {
+              "$ref": "#/components/schemas/ForecastRun"
+            },
+            "title": "Runs",
+            "type": "array"
+          },
+          "runs_used": {
+            "items": {
+              "format": "date-time",
+              "type": "string"
+            },
+            "title": "Runs Used",
+            "type": "array"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/DaySummary"
+          }
+        },
+        "required": [
+          "delivery_date",
+          "decision_date",
+          "decision_time",
+          "deadline_utc",
+          "runs_used",
+          "band_confidence",
+          "summary",
+          "hourly",
+          "actuals",
+          "runs"
+        ],
+        "title": "DayView",
+        "type": "object"
+      },
+      "DecisionTimePresetOut": {
+        "properties": {
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "time": {
+            "title": "Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "label",
+          "time",
+          "description"
+        ],
+        "title": "DecisionTimePresetOut",
+        "type": "object"
+      },
+      "DecisionTimeStat": {
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "decision_time": {
+            "description": "UK local time on D-1, HH:MM",
+            "title": "Decision Time",
+            "type": "string"
+          },
+          "label": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Label"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "median_horizon_h": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Median Horizon H"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "p90_abs_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Abs Error Mw"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rmse Mw"
+          }
+        },
+        "required": [
+          "decision_time",
+          "label",
+          "n",
+          "mae_mw",
+          "rmse_mw",
+          "bias_mw",
+          "p90_abs_error_mw",
+          "median_horizon_h"
+        ],
+        "title": "DecisionTimeStat",
+        "type": "object"
+      },
+      "ErrorSummary": {
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Mean error; positive = forecast too high",
+            "title": "Bias Mw"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Mean absolute error",
+            "title": "Mae Mw"
+          },
+          "max_over_forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Largest positive error",
+            "title": "Max Over Forecast Mw"
+          },
+          "max_under_forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Largest negative error",
+            "title": "Max Under Forecast Mw"
+          },
+          "mean_actual_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Actual Mw"
+          },
+          "mean_forecast_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mean Forecast Mw"
+          },
+          "median_abs_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Median Abs Error Mw"
+          },
+          "n": {
+            "description": "Number of hours evaluated",
+            "title": "N",
+            "type": "integer"
+          },
+          "p10_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P10 Error Mw"
+          },
+          "p90_abs_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "90% of hours had a smaller absolute error",
+            "title": "P90 Abs Error Mw"
+          },
+          "p90_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Error Mw"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Root mean squared error",
+            "title": "Rmse Mw"
+          },
+          "wape": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Sum of absolute errors / sum of actual output",
+            "title": "Wape"
+          }
+        },
+        "required": [
+          "n",
+          "mae_mw",
+          "rmse_mw",
+          "bias_mw",
+          "wape",
+          "median_abs_error_mw",
+          "p90_abs_error_mw",
+          "p10_error_mw",
+          "p90_error_mw",
+          "max_over_forecast_mw",
+          "max_under_forecast_mw",
+          "mean_actual_mw",
+          "mean_forecast_mw"
+        ],
+        "title": "ErrorSummary",
+        "type": "object"
+      },
+      "ForecastLevelStat": {
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "level_from_mw": {
+            "title": "Level From Mw",
+            "type": "integer"
+          },
+          "level_to_mw": {
+            "title": "Level To Mw",
+            "type": "integer"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "level_from_mw",
+          "level_to_mw",
+          "n",
+          "mae_mw",
+          "bias_mw"
+        ],
+        "title": "ForecastLevelStat",
+        "type": "object"
+      },
+      "ForecastRun": {
+        "properties": {
+          "available_at_decision": {
+            "title": "Available At Decision",
+            "type": "boolean"
+          },
+          "points": {
+            "items": {
+              "$ref": "#/components/schemas/RunPoint"
+            },
+            "title": "Points",
+            "type": "array"
+          },
+          "publish_time": {
+            "format": "date-time",
+            "title": "Publish Time",
+            "type": "string"
+          },
+          "used": {
+            "title": "Used",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "publish_time",
+          "available_at_decision",
+          "used",
+          "points"
+        ],
+        "title": "ForecastRun",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "HalfHourActual": {
+        "properties": {
+          "actual_mw": {
+            "title": "Actual Mw",
+            "type": "number"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "actual_mw"
+        ],
+        "title": "HalfHourActual",
+        "type": "object"
+      },
+      "HistogramBin": {
+        "properties": {
+          "count": {
+            "title": "Count",
+            "type": "integer"
+          },
+          "from_mw": {
+            "title": "From Mw",
+            "type": "number"
+          },
+          "to_mw": {
+            "title": "To Mw",
+            "type": "number"
+          }
+        },
+        "required": [
+          "from_mw",
+          "to_mw",
+          "count"
+        ],
+        "title": "HistogramBin",
+        "type": "object"
+      },
+      "HorizonStat": {
+        "description": "Accuracy by lead time (target time - publish time), over every forecast run.",
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "horizon_from_h": {
+            "title": "Horizon From H",
+            "type": "integer"
+          },
+          "horizon_to_h": {
+            "title": "Horizon To H",
+            "type": "integer"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "rmse_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Rmse Mw"
+          }
+        },
+        "required": [
+          "horizon_from_h",
+          "horizon_to_h",
+          "n",
+          "mae_mw",
+          "rmse_mw",
+          "bias_mw"
+        ],
+        "title": "HorizonStat",
+        "type": "object"
+      },
+      "HourOfDayStat": {
+        "properties": {
+          "bias_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bias Mw"
+          },
+          "hour": {
+            "description": "UK local hour of day, 0-23",
+            "title": "Hour",
+            "type": "integer"
+          },
+          "mae_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Mae Mw"
+          },
+          "n": {
+            "title": "N",
+            "type": "integer"
+          },
+          "p10_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P10 Error Mw"
+          },
+          "p90_error_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "P90 Error Mw"
+          }
+        },
+        "required": [
+          "hour",
+          "n",
+          "mae_mw",
+          "bias_mw",
+          "p10_error_mw",
+          "p90_error_mw"
+        ],
+        "title": "HourOfDayStat",
+        "type": "object"
+      },
+      "Meta": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DataInfo"
+          },
+          "decision_date_from": {
+            "format": "date",
+            "title": "Decision Date From",
+            "type": "string"
+          },
+          "decision_date_to": {
+            "format": "date",
+            "title": "Decision Date To",
+            "type": "string"
+          },
+          "decision_time_presets": {
+            "items": {
+              "$ref": "#/components/schemas/DecisionTimePresetOut"
+            },
+            "title": "Decision Time Presets",
+            "type": "array"
+          },
+          "default_decision_time": {
+            "title": "Default Decision Time",
+            "type": "string"
+          },
+          "delivery_date_from": {
+            "format": "date",
+            "title": "Delivery Date From",
+            "type": "string"
+          },
+          "delivery_date_to": {
+            "format": "date",
+            "title": "Delivery Date To",
+            "type": "string"
+          },
+          "timezone": {
+            "title": "Timezone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "timezone",
+          "decision_date_from",
+          "decision_date_to",
+          "delivery_date_from",
+          "delivery_date_to",
+          "default_decision_time",
+          "decision_time_presets",
+          "data"
+        ],
+        "title": "Meta",
+        "type": "object"
+      },
+      "PlanningMargin": {
+        "properties": {
+          "confidence": {
+            "description": "Probability that actual wind >= forecast - margin",
+            "title": "Confidence",
+            "type": "number"
+          },
+          "margin_mw": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Margin Mw"
+          }
+        },
+        "required": [
+          "confidence",
+          "margin_mw"
+        ],
+        "title": "PlanningMargin",
+        "type": "object"
+      },
+      "RunPoint": {
+        "properties": {
+          "forecast_mw": {
+            "title": "Forecast Mw",
+            "type": "number"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "forecast_mw"
+        ],
+        "title": "RunPoint",
+        "type": "object"
+      },
+      "ScatterPoint": {
+        "properties": {
+          "actual_mw": {
+            "title": "Actual Mw",
+            "type": "number"
+          },
+          "forecast_mw": {
+            "title": "Forecast Mw",
+            "type": "number"
+          },
+          "start_time": {
+            "format": "date-time",
+            "title": "Start Time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "start_time",
+          "forecast_mw",
+          "actual_mw"
+        ],
+        "title": "ScatterPoint",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "UK national wind generation forecasts as available at day-ahead purchase decision time, and their measured accuracy (Elexon BMRS FUELHH + WINDFOR).",
+    "title": "Wind Forecast Decision Support API",
+    "version": "1.0.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/accuracy": {
+      "get": {
+        "description": "Accuracy of the forecasts available at decision time over a range of delivery days.",
+        "operationId": "accuracy_api_accuracy_get",
+        "parameters": [
+          {
+            "description": "First delivery day",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "First delivery day",
+              "title": "From"
+            }
+          },
+          {
+            "description": "Last delivery day",
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "Last delivery day",
+              "title": "To"
+            }
+          },
+          {
+            "description": "UK local time on the day before delivery when the purchase is decided (HH:MM). Defaults to the EPEX gate closure, 09:20.",
+            "in": "query",
+            "name": "decision_time",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "UK local time on the day before delivery when the purchase is decided (HH:MM). Defaults to the EPEX gate closure, 09:20.",
+              "examples": [
+                "09:20"
+              ],
+              "title": "Decision Time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AccuracyReport"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Accuracy"
+      }
+    },
+    "/api/day": {
+      "get": {
+        "description": "What the buyer knew at decision time for one delivery day, and what actually happened.",
+        "operationId": "day_api_day_get",
+        "parameters": [
+          {
+            "description": "UK delivery day (the day after the decision)",
+            "in": "query",
+            "name": "delivery_date",
+            "required": true,
+            "schema": {
+              "description": "UK delivery day (the day after the decision)",
+              "format": "date",
+              "title": "Delivery Date",
+              "type": "string"
+            }
+          },
+          {
+            "description": "UK local time on the day before delivery when the purchase is decided (HH:MM). Defaults to the EPEX gate closure, 09:20.",
+            "in": "query",
+            "name": "decision_time",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "description": "UK local time on the day before delivery when the purchase is decided (HH:MM). Defaults to the EPEX gate closure, 09:20.",
+              "examples": [
+                "09:20"
+              ],
+              "title": "Decision Time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DayView"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Day"
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "health_api_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "title": "Response Health Api Health Get",
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Health"
+      }
+    },
+    "/api/meta": {
+      "get": {
+        "description": "Date ranges in scope, decision-time presets and data provenance/quality.",
+        "operationId": "meta_api_meta_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Meta"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Meta"
+      }
+    }
+  }
+}

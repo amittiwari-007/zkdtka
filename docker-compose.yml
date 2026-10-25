@@ -1,0 +1,15 @@
+# Production-like: one container serving the API and the built React app.
+#   docker compose up --build        ->  http://localhost:8000
+services:
+  app:
+    build:
+      context: .
+      target: runtime
+    image: wind-forecast-desk:latest
+    ports:
+      - "8000:8000"
+    environment:
+      # "snapshot" serves the bundled January 2026 data; "live" fetches from Elexon on start-up
+      # (falling back to the snapshot if Elexon is unreachable).
+      DATA_MODE: ${DATA_MODE:-snapshot}
+    restart: unless-stopped
